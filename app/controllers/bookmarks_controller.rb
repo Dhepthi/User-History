@@ -1,6 +1,7 @@
 class BookmarksController < ApplicationController
   # GET /bookmarks
   # GET /bookmarks.json
+  before_filter :authenticate_user!, :except => [:show, :index]
   def index
     @bookmarks = Bookmark.all
 
