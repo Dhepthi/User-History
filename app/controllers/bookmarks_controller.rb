@@ -4,7 +4,7 @@ class BookmarksController < ApplicationController
   before_filter :authenticate_user!, :except => [:show, :index]
   def index
     @bookmarks = Bookmark.all
-
+    @tags = Bookmark.select(:tags)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @bookmarks }

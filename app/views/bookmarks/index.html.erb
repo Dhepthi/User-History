@@ -1,6 +1,11 @@
 <h1>Listing bookmarks</h1>
 
 <table>
+	<tr>
+		<th><%= check_box_tag 'curr_usr' %> &nbsp;&nbsp;List Current User&nbsp;&nbsp;&nbsp;&nbsp;
+		<%= select_tag "tags", options_from_collection_for_select(@tags, "id", "tags") %> </th>  
+	<th><%= button_tag "Search", :id => "search_button" %> </th> 
+	   </tr>
   <tr>
     <th>Url</th>
     <th>Tags</th>
@@ -13,9 +18,6 @@
   <tr>
     <td><%= bookmark.url %></td>
     <td><%= bookmark.tags %></td>
-    <td><%= link_to 'Show', bookmark %></td>
-    <td><%= link_to 'Edit', edit_bookmark_path(bookmark) %></td>
-    <td><%= link_to 'Destroy', bookmark, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>
