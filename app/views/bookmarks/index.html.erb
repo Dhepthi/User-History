@@ -3,9 +3,11 @@
 <table>
 	<tr>
 		<th><%= check_box_tag 'curr_usr' %> &nbsp;&nbsp;List Current User&nbsp;&nbsp;&nbsp;&nbsp;
-		<%= select_tag "tags", options_from_collection_for_select(@tags, "id", "tags") %> </th>  
+		<%= select_tag "tags", options_from_collection_for_select(@tags, "tags", "tags") %> </th>  
 	<th><%= button_tag "Search", :id => "search_button" %> </th> 
 	   </tr>
+	</table>
+	<table id="url_list">
   <tr>
     <th>Url</th>
     <th>Tags</th>
@@ -25,3 +27,24 @@
 <br />
 
 <%= link_to 'New Bookmark', new_bookmark_path %>
+
+<script type="text/javascript">
+$(document).ready(function(){
+$("#search_button").click(function(){
+	
+	search_data = {"curr_usr" : $("#curr_usr").is(':checked'), "tag_value" : $('select#tags option:selected').val() }
+	$.ajax({
+	  type: 'POST',
+	  url: "/bookmarks/get_list",
+	  data: search_data,
+	  dataType: 'json',
+	  success: function(){
+	    alert("User requested data");
+	  }
+	
+	});	
+	
+});
+	
+});
+</script>

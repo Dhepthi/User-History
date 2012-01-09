@@ -11,6 +11,14 @@ class BookmarksController < ApplicationController
     end
   end
 
+  def get_list
+    @bookmarks = params[:curr_usr] ? current_user.bookmarks.find(:all, :conditions => ["tags=?", params[:tag_value]]) : Bookmark.find(:all, :conditions => ["tags=?", params[:tag_value]])
+     @tags = Bookmark.select(:tags)
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json { render json: @bookmarks }
+    end
+  end
   # GET /bookmarks/1
   # GET /bookmarks/1.json
   def show
