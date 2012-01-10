@@ -3,27 +3,27 @@
 <table>
 	<tr>
 		<th><%= check_box_tag 'curr_usr' %> &nbsp;&nbsp;List Current User&nbsp;&nbsp;&nbsp;&nbsp;
-		<%= select_tag "tags", options_from_collection_for_select(@tags, "tags", "tags") %> </th>  
+		<%= select_tag "tags", options_from_collection_for_select(@tags, "tags", "tags") , :prompt => "Select Tags if you need to sort out" %> </th>  
 	<th><%= button_tag "Search", :id => "search_button" %> </th> 
 	   </tr>
-	</table>
-	<table id="url_list">
-  <tr>
-    <th>Url</th>
-    <th>Tags</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+		<tr>
+		    <td><b>Tags</b></td>
+		    <td><b>URL</b></td>
+		  </tr>
+		</table>
+		
+	<div >
+<table id="url_list">
+		<% @bookmarks.each do |bookmark| %>
+		  <tr>
+		    <td><%= bookmark.tags %>&nbsp;&nbsp;</td>
+		    <td><%= bookmark.url %></td>
+		  </tr>
+		<% end %>
 
-<% @bookmarks.each do |bookmark| %>
-  <tr>
-    <td><%= bookmark.url %></td>
-    <td><%= bookmark.tags %></td>
-  </tr>
-<% end %>
-</table>
 
+		</table>
+   </div>
 <br />
 
 <%= link_to 'New Bookmark', new_bookmark_path %>
@@ -31,15 +31,28 @@
 <script type="text/javascript">
 $(document).ready(function(){
 $("#search_button").click(function(){
-	
-	search_data = {"curr_usr" : $("#curr_usr").is(':checked'), "tag_value" : $('select#tags option:selected').val() }
+	var selected_option = $('select#tags option:selected').val();
+	if(selected_option == "")
+	{
+		selected_option = "%"
+	}
+	search_data = {"curr_usr" : $("#curr_usr").is(':checked'), "tag_value" : selected_option }
 	$.ajax({
 	  type: 'POST',
 	  url: "/bookmarks/get_list",
 	  data: search_data,
 	  dataType: 'json',
-	  success: function(){
-	    alert("User requested data");
+	  success: function(response){
+	    $("#url_list").empty();
+	   $.each(response.data,function(key,val){
+		$("#url_list").append("<tbody><tr>")
+		$.each(val,function(k,v){
+		    $("#url_list").append("<td>"+v+"&nbsp;&nbsp;&nbsp;</td>");
+		});
+			$("#url_list").append("</tbody></tr>")
+	})
+	
+		
 	  }
 	
 	});	

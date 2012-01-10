@@ -4,7 +4,7 @@ class BookmarksController < ApplicationController
   before_filter :authenticate_user!, :except => [:show, :index]
   def index
     @bookmarks = Bookmark.all
-    @tags = Bookmark.select(:tags)
+    @tags = Bookmark.select("DISTINCT(tags)")
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @bookmarks }
@@ -12,12 +12,13 @@ class BookmarksController < ApplicationController
   end
 
   def get_list
-    @bookmarks = params[:curr_usr] ? current_user.bookmarks.find(:all, :conditions => ["tags=?", params[:tag_value]]) : Bookmark.find(:all, :conditions => ["tags=?", params[:tag_value]])
-     @tags = Bookmark.select(:tags)
-      respond_to do |format|
-        format.html # index.html.erb
-        format.json { render json: @bookmarks }
+    if params[:curr_usr] == "true"
+      @urls = current_user.bookmarks.all(:select => "url,tags", :conditions => ["tags like ?", params[:tag_value]])
+    else
+      @urls = Bookmark.all(:select => "url,tags", :conditions => ["tags like ?", params[:tag_value]] )
     end
+    
+    render :json => {:msg => "Search Complete", :data => @urls }
   end
   # GET /bookmarks/1
   # GET /bookmarks/1.json
@@ -34,7 +35,6 @@ class BookmarksController < ApplicationController
   # GET /bookmarks/new.json
   def new
     @bookmark = Bookmark.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @bookmark }
