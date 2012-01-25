@@ -5,9 +5,13 @@ gem 'devise', '1.1.5'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
-
-
+group :development, :test do
+  gem 'sqlite3'
+end
+group :production do
+  gem 'pg'
+gem 'thin'
+end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
