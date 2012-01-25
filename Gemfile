@@ -1,7 +1,14 @@
 source 'http://rubygems.org'
+source :gemcutter
+
+
 
 gem 'rails', '3.1.3'
 gem 'devise', '1.1.5'
+gem "sinatra"
+gem "mogli"
+gem "json"
+gem "httparty"
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
@@ -11,6 +18,7 @@ end
 group :production do
   gem 'pg'
 gem 'thin'
+
 end
 # Gems used only for assets and not required
 # in production environments by default.
