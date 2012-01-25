@@ -1,13 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
 
     <title><%= @app.name %></title>
- <%= stylesheet_link_tag    "application" %>
+<%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+
     <link rel="stylesheet" href="/stylesheets/screen.css" media="screen">
 
     <!-- These are Open Graph tags.  They add meta data to your  -->
@@ -156,6 +156,7 @@
           <p>Let users find and connect to their friends in mobile apps and games.</p>
         </li>
       </ul>
+    </section>
 <div id="user_nav">
 	  <% if user_signed_in? %>
 	    Signed in as <%= current_user.email %>. Not you?
@@ -165,15 +166,6 @@
 	    <%= link_to "Sign in", new_user_session_path %>
 	  <% end %>
 	</div>
-
-
 <%= yield %>
-    </section>
   </body>
 </html>
-
-
-
-
-
-
