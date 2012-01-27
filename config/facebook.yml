@@ -1,7 +1,7 @@
 development: &defaults
   client_id: 176899342416884
   client_secret: 88331ceda50941b3ed162d862c906c2b
-  canvas_url: http://apps.facebook.com/UserHistory/
+  canvas_url: http://apps.facebook.com/SampleApp/
 
 test:
   <<: *defaults
