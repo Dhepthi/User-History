@@ -1,10 +1,10 @@
-<h1>Listing bookmarks</h1>
+<h2>Search Links based on Tags</h2>
 
 <table>
 	<tr>
-		<th><%= check_box_tag 'curr_usr' %> &nbsp;&nbsp;List Current User&nbsp;&nbsp;&nbsp;&nbsp;
+		<th><%#= check_box_tag 'curr_usr' %> &nbsp;&nbsp;&nbsp;&nbsp;
 		<%= select_tag "tags", options_from_collection_for_select(@tags, "tags", "tags") , :prompt => "Select Tags if you need to sort out" %> </th>  
-	<th><%= button_tag "Search", :id => "search_button" %> </th> 
+	<th>&nbsp;&nbsp;&nbsp;&nbsp;<%= button_tag "Search", :id => "search_button" %> </th> 
 	   </tr>
 		<tr>
 		    <td><b>Tags</b></td>
@@ -36,7 +36,7 @@ $("#search_button").click(function(){
 	{
 		selected_option = "%"
 	}
-	search_data = {"curr_usr" : $("#curr_usr").is(':checked'), "tag_value" : selected_option }
+	search_data = {"curr_usr" : "false", "tag_value" : selected_option }
 	$.ajax({
 	  type: 'POST',
 	  url: "/bookmarks/get_list",

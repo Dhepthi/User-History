@@ -1,7 +1,7 @@
 class BookmarksController < ApplicationController
   # GET /bookmarks
   # GET /bookmarks.json
-  before_filter :authenticate_user!, :except => [:show]
+  #before_filter :authenticate_user!, :except => [:show]
   def index
     @bookmarks = Bookmark.all
     @tags = Bookmark.select("DISTINCT(tags)")
