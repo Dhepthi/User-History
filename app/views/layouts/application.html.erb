@@ -2,26 +2,59 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-
+<script src="http://connect.facebook.net/en_US/all.js"></script>
     
 <%= stylesheet_link_tag "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-   <div id="user_nav">
-	  <% if user_signed_in? %>
-	    Signed in as <%= current_user.email %>. Not you?
-	    <%= link_to "Sign out", destroy_user_session_path %>
-	  <% else %>
-	    <%= link_to "Sign up", new_user_registration_path %> or
-	    <%= link_to "Sign in", new_user_session_path %>
-	  <% end %>
-	</div>
-<%= yield %>
+<div id="fb-root">
+<fb:login-button autologoutlink="true" onlogin="OnRequestPermission();" scope="user_about_me,user_activities,user_birthday,user_education_history,user_events,user_groups,user_hometown,user_interests,user_likes,user_location,user_notes,user_online_presence">
+</fb:login-button>
+<div >
+<h3> <%= link_to 'Share your experience', '#', :id => :post_comments %> | <%= link_to 'App Request', '#', :id => :app_request %>
+</h3></div>
+</div>
 
+<%= yield %>
   </body>
 </html>
 
 
+<script language="javascript" type="text/javascript">
+FB.init({appId: '265171790218414', xfbml: true, cookie: true, oauth: true});
 
+      FB.login({
+        scope: 'email,user_birthday',
+      });   
+
+
+$(function () {
+
+ $('#app_request').click(function () {
+    FB.ui({
+      method: 'apprequests',
+      message: 'Hi This is my test app developed in RoR and integrated in FB',
+      data: 'Stores important links of user'
+    });
+return false;
+  });
+});
+
+   $('#post_comments').click(function () { 
+
+        // calling the API ...
+        var obj = {
+          method: 'feed',
+          link: 'http://apps.facebook.com/265171790218414/',
+          picture: 'http://cdn1.iconfinder.com/data/icons/softwaredemo/PNG/256x256/User1.png',
+          name: 'User Bookmark App',
+          caption: 'Using RoR and FaceBook',
+          description: 'Integrated RoR app in Facebook through canvas'
+        };
+        FB.ui(obj);
+       return false;
+      });
+
+</script>
