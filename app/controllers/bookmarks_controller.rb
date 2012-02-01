@@ -49,8 +49,8 @@ class BookmarksController < ApplicationController
   # POST /bookmarks
   # POST /bookmarks.json
   def create
-    @bookmark = current_user.bookmarks.build(params[:bookmark])
-
+    #@bookmark = current_user.bookmarks.build(params[:bookmark])
+    @bookmark = Bookmark.create(params[:bookmark])
     respond_to do |format|
       if @bookmark.save
         format.html { redirect_to bookmarks_url, notice: 'Bookmark was successfully created.' }
