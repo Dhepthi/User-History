@@ -30,7 +30,7 @@ background: url("images/header_back.png") repeat-x scroll left top transparent;
 </span>
 </span>
 <div >
-<h3> <%= link_to 'Share your experience', '#', :id => :post_comments %> | <%= link_to 'App Request', '#', :id => :app_request %>
+<h3> <%= link_to 'Share your experience', '#', :id => :post_comments %> | <%= link_to 'Send Request to your friends', '#', :id => :app_request %>
 </h3></div>
 </div>
 
@@ -44,7 +44,7 @@ FB.init({appId: '265171790218414', xfbml: true, cookie: true, oauth: true});
 
       FB.login({
         scope: 'email,user_birthday',
-      });   
+      });
 
 
 $(function () {
@@ -59,7 +59,7 @@ return false;
   });
 });
 
-   $('#post_comments').click(function () { 
+   $('#post_comments').click(function () {
 
         // calling the API ...
         var obj = {
