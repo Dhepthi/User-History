@@ -2,16 +2,33 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+<meta property="fb:app_id" content="265171790218414" />
 <script src="http://connect.facebook.net/en_US/all.js"></script>
     
 <%= stylesheet_link_tag "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+<style type="text/css">
+body {
+    background: url("/images/body_back.png") repeat-x scroll left -100px #FFFCF5;
+    color: #333333;
+    font-family: Verdana;
+}
+#header {
+background: url("images/header_back.png") repeat-x scroll left top transparent;
+    height: 35px;
+    padding: 42px;
+    text-align: center;
+}
+</style>
 </head>
 <body>
 <div id="fb-root">
-<fb:login-button autologoutlink="true" onlogin="OnRequestPermission();" scope="user_about_me,user_activities,user_birthday,user_education_history,user_events,user_groups,user_hometown,user_interests,user_likes,user_location,user_notes,user_online_presence">
+<span id ="header"><h1>User Bookmarks</h1>
+<span style="float:right; position: relative;top: -15px;"><fb:login-button autologoutlink="true" onlogin="OnRequestPermission();" scope="user_about_me,user_activities,user_birthday,user_education_history,user_events,user_groups,user_hometown,user_interests,user_likes,user_location,user_notes,user_online_presence">
 </fb:login-button>
+</span>
+</span>
 <div >
 <h3> <%= link_to 'Share your experience', '#', :id => :post_comments %> | <%= link_to 'App Request', '#', :id => :app_request %>
 </h3></div>
